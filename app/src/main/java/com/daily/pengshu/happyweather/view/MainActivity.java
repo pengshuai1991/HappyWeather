@@ -1,17 +1,16 @@
 package com.daily.pengshu.happyweather.view;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.location.LocationClient;
 import com.daily.pengshu.happyweather.R;
 import com.daily.pengshu.happyweather.adapter.WeatherPagerAdapter;
 import com.daily.pengshu.happyweather.bean.City;
@@ -22,7 +21,6 @@ import com.daily.pengshu.happyweather.presenter.MainPresenter;
 import com.daily.pengshu.happyweather.util.T;
 import com.daily.pengshu.happyweather.view.fragment.FirstWeatherFragment;
 import com.daily.pengshu.happyweather.view.fragment.SecondWeatherFragment;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +84,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void initView() {
         mCityManagerBtn = (ImageView) findViewById(R.id.title_city_manager);
+        mCityManagerBtn.setOnClickListener(this);
+
         mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn);
         mShareBtn = (ImageView) findViewById(R.id.title_share);
         mLocationBtn = (ImageView) findViewById(R.id.title_location);
@@ -96,6 +96,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mShareBtn.setVisibility(View.GONE);
         mUpdateProgressBar = (ProgressBar) findViewById(R.id.title_update_progress);
         mTitleTextView = (TextView) findViewById(R.id.title_city_name);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         cityTv = (TextView) findViewById(R.id.city);
         timeTv = (TextView) findViewById(R.id.time);
@@ -114,6 +115,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fragments.add(new SecondWeatherFragment());
 
         mWeatherPagerAdapter = new WeatherPagerAdapter(getSupportFragmentManager(),fragments);
+        mViewPager.setAdapter(mWeatherPagerAdapter);
+
+
 
 
 
@@ -121,6 +125,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+
+        switch (view.getId()){
+            case R.id.title_city_manager:
+                Intent i = new Intent(this,SelectCityActivity.class);
+                startActivityForResult(i,0);
+        }
 
     }
 
