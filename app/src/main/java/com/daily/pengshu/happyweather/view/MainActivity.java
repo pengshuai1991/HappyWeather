@@ -128,8 +128,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         switch (view.getId()){
             case R.id.title_city_manager:
-                Intent i = new Intent(this,SelectCityActivity.class);
+                Intent i = new Intent(this,CityListActivity.class);
                 startActivityForResult(i,0);
+                break;
+            default:
+                break;
+
         }
 
     }
